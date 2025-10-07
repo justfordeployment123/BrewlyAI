@@ -1,0 +1,16 @@
+{
+  "name": "brewlyai",
+  "version": "1.0.0",
+  "description": "BrewlyAI Static Website",
+  "main": "s.html",
+  "scripts": {
+    "start": "npx serve -s . -l 3000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}
+
