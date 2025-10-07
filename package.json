@@ -4,7 +4,7 @@
   "description": "BrewlyAI Static Website",
   "main": "s.html",
   "scripts": {
-    "start": "npx serve -s . -l ${PORT:-3000}"
+    "start": "npx serve -s . -l ${PORT:-3018}"
   },
   "keywords": [],
   "author": "",
