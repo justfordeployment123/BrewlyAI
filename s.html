@@ -1,0 +1,2397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brewly AI - Intelligent Coffee Pairing Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+    :root {
+        --coffee-brown: #6F4E37;
+        --cream: #FFF8E7;
+        --espresso: #3C2414;
+        --latte: #C8A882;
+        --mocha: #967259;
+        --gold: #D4A574;
+        --foam: #FFEEDD;
+        --success: #4CAF50;
+        --warning: #FF9800;
+        --danger: #F44336;
+        --gradient-primary: linear-gradient(135deg, #6F4E37 0%, #3C2414 100%);
+        --gradient-accent: linear-gradient(135deg, #D4A574 0%, #C8A882 100%);
+    }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: linear-gradient(135deg, #6F4E37 0%, #3C2414 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(60, 36, 20, 0.7), rgba(111, 78, 55, 0.8)), 
+                        url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 0;
+        }
+
+        .hero-overlay {
+            width: 100%;
+            padding: 60px 20px;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(212, 165, 116, 0.2);
+            backdrop-filter: blur(10px);
+            color: var(--gold);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            border: 2px solid rgba(212, 165, 116, 0.3);
+            letter-spacing: 1px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5em;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            font-weight: 900;
+            background: none;
+            -webkit-text-fill-color: white;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .hero-description {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .hero-btn-primary {
+            background: linear-gradient(135deg, var(--gold) 0%, #FFA500 100%);
+            color: var(--espresso);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
+        }
+
+        .hero-btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 165, 116, 0.6);
+        }
+
+        .hero-btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .stat-label {
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 5px;
+        }
+
+        /* Animated coffee beans background */
+        .coffee-bean {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(255,248,231,0.15)"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>') center/contain no-repeat;
+            animation: float 25s infinite linear;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% { 
+                transform: translateY(-100px) rotate(0deg); 
+                opacity: 0; 
+            }
+            10% { 
+                opacity: 0.6; 
+            }
+            90% { 
+                opacity: 0.6; 
+            }
+            100% { 
+                transform: translateY(calc(100vh + 100px)) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: -50px auto 40px;
+            background: var(--cream);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            animation: slideUp 0.6s ease-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* Services Section */
+        .services-section {
+            background: var(--cream);
+            padding: 80px 20px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .services-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 60px rgba(111, 78, 55, 0.25);
+        }
+
+        .service-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(111, 78, 55, 0.85), rgba(60, 36, 20, 0.85));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover .service-overlay {
+            opacity: 1;
+        }
+
+        .service-icon {
+            font-size: 4em;
+            color: var(--gold);
+            animation: bounceIn 0.6s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .service-content {
+            padding: 30px;
+        }
+
+        .service-content h3 {
+            font-size: 1.6em;
+            color: var(--espresso);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .service-content p {
+            color: var(--mocha);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .service-link {
+            color: var(--coffee-brown);
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .service-link:hover {
+            color: var(--gold);
+            gap: 12px;
+        }
+
+        /* Features Section */
+        .features-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 15px 35px rgba(111, 78, 55, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: var(--coffee-brown);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.2), rgba(200, 168, 130, 0.1));
+            border-radius: 20px;
+            margin: 0 auto 20px;
+        }
+
+        .feature-icon i {
+            font-size: 1em;
+        }
+
+        .feature-card h3 {
+            color: var(--espresso);
+            font-size: 1.3em;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: var(--mocha);
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, var(--coffee-brown) 0%, var(--espresso) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            color: var(--mocha);
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--gold);
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            font-size: 1.05em;
+            cursor: pointer;
+            color: var(--mocha);
+            position: relative;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab i {
+            font-size: 1.1em;
+        }
+
+        .tab:hover {
+            color: var(--coffee-brown);
+        }
+
+        .tab.active {
+            color: var(--espresso);
+            font-weight: 700;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--coffee-brown) 0%, var(--gold) 100%);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { 
+                width: 0; 
+                left: 50%; 
+            }
+            to { 
+                width: 100%; 
+                left: 0; 
+            }
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(10px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .selection-group {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .selection-group::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            transition: opacity 0.3s ease;
+        }
+
+        .selection-group:first-child::before {
+            background-image: url('https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80');
+        }
+
+        .selection-group:nth-child(2)::before {
+            background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80');
+        }
+
+        .selection-group:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(111, 78, 55, 0.15);
+            border-color: var(--gold);
+        }
+
+        .selection-group:hover::before {
+            opacity: 0.15;
+        }
+
+        /* Product Image Cards */
+        .product-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(111, 78, 55, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--espresso);
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            color: var(--mocha);
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--espresso);
+            font-size: 1.05em;
+        }
+
+        label i {
+            color: var(--coffee-brown);
+        }
+
+        select, input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--latte);
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: white;
+            color: var(--espresso);
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--coffee-brown);
+            box-shadow: 0 0 0 4px rgba(111, 78, 55, 0.1);
+        }
+
+        .stock-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .stock-high {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .stock-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .stock-low {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .advanced-settings {
+            background: linear-gradient(135deg, var(--foam) 0%, var(--latte) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px solid var(--gold);
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button i {
+            font-size: 1.1em;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--coffee-brown) 0%, var(--espresso) 100%);
+            color: var(--cream);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(111, 78, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--coffee-brown);
+            border: 3px solid var(--coffee-brown);
+        }
+
+        .btn-secondary:hover {
+            background: var(--coffee-brown);
+            color: white;
+        }
+
+        .output-section {
+            margin-top: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, #D4A574 0%, #C8A882 50%, #967259 100%);
+            border-radius: 20px;
+            display: none;
+            border: 3px solid var(--coffee-brown);
+            box-shadow: 0 20px 50px rgba(111, 78, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .output-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 248, 231, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .output-section.show {
+            display: block;
+            animation: slideUpFade 0.6s ease;
+        }
+
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pairing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin-top: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+            border: 2px solid var(--gold);
+        }
+
+        .pairing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-accent);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .pairing-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .match-score {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: var(--coffee-brown);
+        }
+
+        .stars {
+            color: var(--gold);
+            font-size: 1.2em;
+        }
+
+        .marketing-text {
+            background: var(--foam);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            line-height: 1.8;
+            border-left: 5px solid var(--gold);
+            color: var(--espresso);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, var(--coffee-brown) 0%, var(--espresso) 100%);
+            color: var(--cream);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-size: 0.95em;
+            opacity: 0.95;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .loader {
+            border: 5px solid var(--foam);
+            border-top: 5px solid var(--coffee-brown);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Showcase Section */
+        .showcase-section {
+            margin: 60px 0;
+            padding: 40px 0;
+            background: linear-gradient(135deg, rgba(255, 248, 231, 0.3), rgba(212, 165, 116, 0.1));
+            border-radius: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gradient-primary);
+            color: var(--cream);
+            padding: 60px 20px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .footer-section h4 {
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .footer-section p {
+            color: rgba(255, 248, 231, 0.9);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            padding: 8px 0;
+            color: rgba(255, 248, 231, 0.8);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li:hover {
+            color: var(--gold);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 248, 231, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.3em;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 248, 231, 0.2);
+            color: rgba(255, 248, 231, 0.7);
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: rgba(60, 36, 20, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            font-weight: 900;
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--cream);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .nav-links a.active {
+            color: var(--gold);
+            background: rgba(212, 165, 116, 0.15);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--gold) 0%, #FFA500 100%);
+            color: var(--espresso) !important;
+            padding: 10px 24px !important;
+            border-radius: 25px;
+            font-weight: 700;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 165, 116, 0.4);
+            background: linear-gradient(135deg, var(--gold) 0%, #FFA500 100%) !important;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--cream);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(60, 36, 20, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                gap: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-content {
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                margin: -30px 20px 40px;
+            }
+            
+            .hero-title {
+                font-size: 2.5em;
+            }
+
+            .hero-subtitle {
+                font-size: 1.3em;
+            }
+
+            .hero-description {
+                font-size: 1em;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                padding: 0 20px;
+            }
+
+            .hero-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-stats {
+                gap: 30px;
+                flex-direction: column;
+            }
+
+            .stat-number {
+                font-size: 2em;
+            }
+
+            .services-container {
+                grid-template-columns: 1fr;
+            }
+
+            .service-image {
+                height: 200px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .selection-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pairing-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .features-section {
+                grid-template-columns: 1fr;
+            }
+
+            .product-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="s.html" class="logo">Brewly AI</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="s.html" class="active"><i class="fa-solid fa-home"></i> Home</a></li>
+                <li><a href="smart-pairing.html"><i class="fa-solid fa-wand-magic-sparkles"></i> Smart Pairing</a></li>
+                <li><a href="b2b-analytics.html"><i class="fa-solid fa-building"></i> B2B Analytics</a></li>
+                <li><a href="custom-input.html"><i class="fa-solid fa-sliders"></i> Custom Input</a></li>
+                <li><a href="#showcase" class="nav-cta"><i class="fa-solid fa-star"></i> Popular Pairings</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Animated coffee beans -->
+    <div class="coffee-bean" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="coffee-bean" style="left: 25%; animation-delay: 5s;"></div>
+    <div class="coffee-bean" style="left: 40%; animation-delay: 10s;"></div>
+    <div class="coffee-bean" style="left: 55%; animation-delay: 15s;"></div>
+    <div class="coffee-bean" style="left: 70%; animation-delay: 20s;"></div>
+    <div class="coffee-bean" style="left: 85%; animation-delay: 25s;"></div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-microchip"></i>
+                    AI-POWERED PLATFORM
+                </div>
+                <h1 class="hero-title">Brewly AI</h1>
+                <p class="hero-subtitle">The Future of Coffee & Pastry Pairing Intelligence</p>
+                <p class="hero-description">Leveraging advanced machine learning algorithms to create perfect flavor harmonies and maximize your business profitability</p>
+                
+                <div class="hero-buttons">
+                    <a href="smart-pairing.html" class="hero-btn hero-btn-primary">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Start Smart Pairing
+                    </a>
+                    <a href="b2b-analytics.html" class="hero-btn hero-btn-secondary">
+                        <i class="fa-solid fa-chart-line"></i> View B2B Analytics
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">95%+</div>
+                        <div class="stat-label">Accuracy Rate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">Pairings Analyzed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Coffee Shops</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section with Images -->
+    <div class="services-section">
+        <div class="services-container">
+            <div class="service-card" onclick="window.location.href='smart-pairing.html'">
+                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80');">
+                    <div class="service-overlay">
+                        <i class="fa-solid fa-wand-magic-sparkles service-icon"></i>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <h3>Smart Pairing</h3>
+                    <p>AI-powered coffee and pastry matching with real-time stock management and profit optimization</p>
+                    <a href="smart-pairing.html" class="service-link">
+                        Explore Pairing <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card" onclick="window.location.href='b2b-analytics.html'">
+                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80');">
+                    <div class="service-overlay">
+                        <i class="fa-solid fa-building service-icon"></i>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <h3>B2B Analytics</h3>
+                    <p>Strategic business intelligence with venue optimization and target audience insights</p>
+                    <a href="b2b-analytics.html" class="service-link">
+                        View Analytics <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="service-card" onclick="window.location.href='custom-input.html'">
+                <div class="service-image" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80');">
+                    <div class="service-overlay">
+                        <i class="fa-solid fa-sliders service-icon"></i>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <h3>Custom Input</h3>
+                    <p>Create unique pairings with your own products and get instant AI-driven recommendations</p>
+                    <a href="custom-input.html" class="service-link">
+                        Create Custom <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Brewly AI - Coffee Pairing Platform</h1>
+            <p class="subtitle">Advanced AI-Powered Coffee & Pastry Pairing Intelligence</p>
+        </div>
+
+        <!-- Feature Cards -->
+        <div class="features-section">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-bullseye"></i></div>
+                <h3>Perfect Pairings</h3>
+                <p>AI-powered flavor matching analyzes taste profiles, intensity, and complementary notes to create exceptional combinations</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <h3>Business Analytics</h3>
+                <p>Real-time stock optimization, profit maximization, and demand forecasting to boost your revenue</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
+                <h3>Machine Learning</h3>
+                <p>Advanced algorithms learn from customer preferences, seasonal trends, and market data</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                <h3>Smart Marketing</h3>
+                <p>Generate compelling product descriptions and targeted marketing copy automatically</p>
+            </div>
+        </div>
+
+        <!-- Quick Demo Section -->
+        <div style="text-align: center; margin: 40px 0;">
+            <h2 style="color: var(--espresso); margin-bottom: 20px; font-size: 2em;">Try Our AI Pairing Demo</h2>
+            <p style="color: var(--mocha); max-width: 700px; margin: 0 auto 30px;">Experience the power of our AI engine with a quick demonstration below, or jump directly to our specialized tools above.</p>
+        </div>
+
+        <!-- Basic Pairing Section -->
+        <div id="basic" class="form-section active">
+            <div class="selection-grid">
+                <div class="selection-group">
+                    <label for="coffee"><i class="fa-solid fa-mug-hot"></i> Select Coffee</label>
+                    <select id="coffee" onchange="updateStockIndicator()">
+                        <option value="">Choose a coffee...</option>
+                        <option value="espresso" data-stock="95" data-profit="3.5" data-intensity="9" data-sweetness="2" data-richness="7">Espresso - Classic Italian</option>
+                        <option value="cappuccino" data-stock="87" data-profit="4.2" data-intensity="5" data-sweetness="5" data-richness="6">Cappuccino - Creamy Delight</option>
+                        <option value="latte" data-stock="92" data-profit="4.5" data-intensity="3" data-sweetness="6" data-richness="5">Latte - Smooth & Milky</option>
+                        <option value="americano" data-stock="78" data-profit="3.2" data-intensity="8" data-sweetness="1" data-richness="4">Americano - Bold & Strong</option>
+                        <option value="macchiato" data-stock="65" data-profit="4.8" data-intensity="7" data-sweetness="3" data-richness="6">Macchiato - Spotted Perfection</option>
+                        <option value="flat-white" data-stock="45" data-profit="5.0" data-intensity="6" data-sweetness="4" data-richness="7">Flat White - Velvety Smooth</option>
+                        <option value="mocha" data-stock="58" data-profit="5.2" data-intensity="4" data-sweetness="8" data-richness="8">Mocha - Chocolate Heaven</option>
+                        <option value="cold-brew" data-stock="34" data-profit="4.0" data-intensity="5" data-sweetness="1" data-richness="3">Cold Brew - Refreshing</option>
+                    </select>
+                    <div id="coffee-stock" class="stock-indicator"></div>
+                </div>
+
+                <div class="selection-group">
+                    <label for="pastry"><i class="fa-solid fa-croissant"></i> Select Pastry</label>
+                    <select id="pastry" onchange="updateStockIndicator()">
+                        <option value="">Choose a pastry...</option>
+                        <option value="croissant" data-stock="89" data-profit="2.8" data-sweetness="4" data-richness="7">Croissant - Buttery Classic</option>
+                        <option value="chocolate-muffin" data-stock="76" data-profit="3.2" data-sweetness="7" data-richness="6">Chocolate Muffin</option>
+                        <option value="blueberry-scone" data-stock="54" data-profit="3.5" data-sweetness="6" data-richness="5">Blueberry Scone</option>
+                        <option value="cinnamon-roll" data-stock="43" data-profit="4.0" data-sweetness="8" data-richness="7">Cinnamon Roll</option>
+                        <option value="almond-biscotti" data-stock="92" data-profit="2.5" data-sweetness="5" data-richness="4">Almond Biscotti</option>
+                        <option value="tiramisu" data-stock="28" data-profit="6.5" data-sweetness="7" data-richness="9">Tiramisu</option>
+                        <option value="danish" data-stock="61" data-profit="3.8" data-sweetness="6" data-richness="6">Danish Pastry</option>
+                        <option value="eclair" data-stock="35" data-profit="5.0" data-sweetness="8" data-richness="8">Chocolate Éclair</option>
+                    </select>
+                    <div id="pastry-stock" class="stock-indicator"></div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-primary" onclick="generatePairing()">
+                    <i class="fa-solid fa-robot"></i> Generate AI Pairing
+                </button>
+                <button class="btn-secondary" onclick="resetForm()">
+                    <i class="fa-solid fa-rotate-right"></i> Reset Selection
+                </button>
+            </div>
+        </div>
+
+
+        <!-- Popular Pairings Showcase -->
+        <div class="showcase-section" id="showcase">
+            <h2 style="text-align: center; color: var(--espresso); margin-bottom: 40px; font-size: 2.5em;">
+                <i class="fa-solid fa-star"></i> Popular AI-Recommended Pairings
+            </h2>
+            <div class="product-showcase">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80" alt="Espresso & Biscotti" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">Espresso & Almond Biscotti</div>
+                        <div class="product-description">Classic Italian pairing - nutty crunch meets intense coffee. AI Score: 95%</div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80" alt="Cappuccino & Croissant" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">Cappuccino & Croissant</div>
+                        <div class="product-description">Buttery perfection meets velvety foam. A morning favorite. AI Score: 94%</div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?auto=format&fit=crop&w=800&q=80" alt="Latte & Muffin" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">Latte & Blueberry Scone</div>
+                        <div class="product-description">Fresh berry tartness balances milky smoothness. AI Score: 93%</div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80" alt="Mocha & Pastry" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">Mocha & Cinnamon Roll</div>
+                        <div class="product-description">Chocolate coffee harmony with warm spices. AI Score: 90%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Animation -->
+        <div class="loading" id="loading">
+            <div class="loader"></div>
+            <p style="margin-top: 20px; color: var(--espresso); font-size: 1.1em; font-weight: 600;">
+                <i class="fa-solid fa-brain"></i> AI is analyzing perfect pairings...
+            </p>
+        </div>
+
+        <!-- Output Section -->
+        <div id="output" class="output-section">
+            <h2 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                <i class="fa-solid fa-trophy"></i> AI Pairing Results
+            </h2>
+            <div class="pairing-card">
+                <div class="pairing-header">
+                    <h3 id="pairing-title" style="color: var(--espresso); font-size: 1.8em;">Perfect Pairing</h3>
+                    <div class="match-score">
+                        <span class="stars" id="stars">★★★★★</span>
+                        <span id="score">95%</span>
+                    </div>
+                </div>
+
+                <div class="marketing-text" id="marketing-text">
+                    Marketing suggestion will appear here...
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="profit-metric">$0.00</div>
+                        <div class="metric-label">Est. Profit</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="stock-metric">0%</div>
+                        <div class="metric-label">Stock Level</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="demand-metric">High</div>
+                        <div class="metric-label">Demand</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="season-metric">All</div>
+                        <div class="metric-label">Best Season</div>
+                    </div>
+                </div>
+
+                <div class="download-buttons">
+                    <button class="btn-primary" onclick="downloadCSV()">
+                        <i class="fa-solid fa-file-csv"></i> Download CSV
+                    </button>
+                    <button class="btn-primary" onclick="downloadJSON()">
+                        <i class="fa-solid fa-file-code"></i> Download JSON
+                    </button>
+                    <button class="btn-primary" onclick="downloadHTML()">
+                        <i class="fa-solid fa-file-lines"></i> Download HTML Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Brewly AI</h3>
+                <p>Revolutionizing coffee & pastry pairings with artificial intelligence</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Features</h4>
+                <ul>
+                    <li>AI Pairing Engine</li>
+                    <li>Business Analytics</li>
+                    <li>Stock Management</li>
+                    <li>Marketing Tools</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li>Documentation</li>
+                    <li>API Reference</li>
+                    <li>Case Studies</li>
+                    <li>Blog</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li>About Us</li>
+                    <li>Contact</li>
+                    <li>Careers</li>
+                    <li>Privacy Policy</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Brewly AI. All rights reserved. Powered by advanced machine learning.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Global variable to store current pairing data
+        let currentPairingData = null;
+
+        // ADVANCED AI PAIRING ENGINE WITH MACHINE LEARNING SIMULATION
+        const advancedPairingAI = {
+            // Flavor Compatibility Matrix
+            flavorMatrix: {
+                'espresso': {
+                    profile: { bitter: 9, sweet: 2, sour: 7, salty: 1, umami: 3 },
+                    bestMatches: {
+                        'almond-biscotti': 95, 'tiramisu': 92, 'chocolate-muffin': 85,
+                        'croissant': 78, 'eclair': 88, 'danish': 75,
+                        'blueberry-scone': 70, 'cinnamon-roll': 73
+                    },
+                    flavor: 'bold, intense',
+                    season: 'all',
+                    timeOfDay: 'morning'
+                },
+                'cappuccino': {
+                    profile: { bitter: 5, sweet: 5, sour: 4, salty: 1, umami: 2 },
+                    bestMatches: {
+                        'croissant': 94, 'danish': 89, 'cinnamon-roll': 91,
+                        'chocolate-muffin': 86, 'eclair': 82, 'blueberry-scone': 88,
+                        'almond-biscotti': 76, 'tiramisu': 84
+                    },
+                    flavor: 'creamy, balanced',
+                    season: 'autumn, winter',
+                    timeOfDay: 'morning, afternoon'
+                },
+                'latte': {
+                    profile: { bitter: 3, sweet: 6, sour: 3, salty: 1, umami: 2 },
+                    bestMatches: {
+                        'blueberry-scone': 93, 'chocolate-muffin': 90, 'danish': 87,
+                        'cinnamon-roll': 92, 'croissant': 85, 'eclair': 88,
+                        'tiramisu': 79, 'almond-biscotti': 71
+                    },
+                    flavor: 'mild, milky',
+                    season: 'all',
+                    timeOfDay: 'all day'
+                },
+                'americano': {
+                    profile: { bitter: 8, sweet: 1, sour: 6, salty: 1, umami: 2 },
+                    bestMatches: {
+                        'croissant': 91, 'almond-biscotti': 93, 'danish': 86,
+                        'chocolate-muffin': 82, 'tiramisu': 77, 'eclair': 79,
+                        'cinnamon-roll': 75, 'blueberry-scone': 81
+                    },
+                    flavor: 'strong, clean',
+                    season: 'all',
+                    timeOfDay: 'morning'
+                },
+                'macchiato': {
+                    profile: { bitter: 7, sweet: 3, sour: 6, salty: 1, umami: 2 },
+                    bestMatches: {
+                        'tiramisu': 94, 'eclair': 91, 'chocolate-muffin': 88,
+                        'danish': 83, 'croissant': 80, 'cinnamon-roll': 86,
+                        'almond-biscotti': 82, 'blueberry-scone': 77
+                    },
+                    flavor: 'espresso-forward, spotted',
+                    season: 'all',
+                    timeOfDay: 'afternoon'
+                },
+                'flat-white': {
+                    profile: { bitter: 6, sweet: 4, sour: 5, salty: 1, umami: 3 },
+                    bestMatches: {
+                        'croissant': 92, 'blueberry-scone': 89, 'danish': 87,
+                        'chocolate-muffin': 84, 'eclair': 85, 'cinnamon-roll': 83,
+                        'almond-biscotti': 78, 'tiramisu': 86
+                    },
+                    flavor: 'velvety, strong',
+                    season: 'all',
+                    timeOfDay: 'morning'
+                },
+                'mocha': {
+                    profile: { bitter: 4, sweet: 8, sour: 2, salty: 1, umami: 3 },
+                    bestMatches: {
+                        'cinnamon-roll': 90, 'danish': 88, 'croissant': 93,
+                        'blueberry-scone': 82, 'chocolate-muffin': 78,
+                        'eclair': 85, 'almond-biscotti': 70, 'tiramisu': 75
+                    },
+                    flavor: 'chocolatey, sweet',
+                    season: 'winter',
+                    timeOfDay: 'afternoon, evening'
+                },
+                'cold-brew': {
+                    profile: { bitter: 5, sweet: 1, sour: 2, salty: 0, umami: 4 },
+                    bestMatches: {
+                        'chocolate-muffin': 91, 'danish': 88, 'eclair': 92,
+                        'tiramisu': 87, 'croissant': 83, 'cinnamon-roll': 85,
+                        'blueberry-scone': 86, 'almond-biscotti': 79
+                    },
+                    flavor: 'smooth, refreshing',
+                    season: 'summer',
+                    timeOfDay: 'afternoon'
+                }
+            },
+
+            // Customer Preference Learning
+            customerPreferences: {
+                morning: { intensity: 0.8, sweetness: 0.3, richness: 0.5 },
+                afternoon: { intensity: 0.5, sweetness: 0.6, richness: 0.7 },
+                evening: { intensity: 0.3, sweetness: 0.8, richness: 0.8 }
+            },
+
+            // Advanced scoring algorithm
+            calculateAdvancedScore(coffee, pastry, coffeeData, pastryData) {
+                // Base compatibility score from matrix
+                let baseScore = this.flavorMatrix[coffee]?.bestMatches[pastry] || 70;
+                
+                // Time-based adjustment
+                const hour = new Date().getHours();
+                const timeOfDay = hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
+                const timePref = this.customerPreferences[timeOfDay];
+                
+                // Extract attributes
+                const intensity = parseInt(coffeeData.dataset.intensity || 5);
+                const sweetness = parseInt(pastryData.dataset.sweetness || 5);
+                const richness = parseInt(pastryData.dataset.richness || 5);
+                
+                // Time preference adjustment
+                const timeAdjustment = 
+                    (10 - Math.abs(intensity - timePref.intensity * 10)) * 0.3 +
+                    (10 - Math.abs(sweetness - timePref.sweetness * 10)) * 0.3 +
+                    (10 - Math.abs(richness - timePref.richness * 10)) * 0.3;
+                
+                // Stock optimization factor
+                const coffeeStock = parseInt(coffeeData.dataset.stock);
+                const pastryStock = parseInt(pastryData.dataset.stock);
+                const stockOptimization = this.calculateStockOptimization(coffeeStock, pastryStock);
+                
+                // Profit maximization
+                const profitScore = this.calculateProfitScore(
+                    parseFloat(coffeeData.dataset.profit),
+                    parseFloat(pastryData.dataset.profit)
+                );
+                
+                // Weather adaptation (simulated)
+                const weatherScore = this.getWeatherAdaptation(coffee, pastry);
+                
+                // Final weighted score
+                const finalScore = 
+                    baseScore * 0.4 +           // Flavor compatibility (40%)
+                    timeAdjustment * 2 +         // Time preference (20%)
+                    stockOptimization * 0.2 +    // Stock optimization (20%)
+                    profitScore * 0.15 +         // Profit factor (15%)
+                    weatherScore * 0.05;         // Weather adaptation (5%)
+                
+                return Math.min(99, Math.round(finalScore));
+            },
+
+            calculateStockOptimization(coffeeStock, pastryStock) {
+                // Prioritize low stock items (push them)
+                const avgStock = (coffeeStock + pastryStock) / 2;
+                if (avgStock < 30) return 100;  // Urgent - push hard
+                if (avgStock < 50) return 85;   // Need to move
+                if (avgStock < 70) return 70;   // Normal
+                return 50;  // Overstocked - don't push
+            },
+
+            calculateProfitScore(coffeeProfit, pastryProfit) {
+                const totalProfit = coffeeProfit + pastryProfit;
+                if (totalProfit > 9) return 100;
+                if (totalProfit > 7) return 85;
+                if (totalProfit > 5) return 70;
+                return 60;
+            },
+
+            getWeatherAdaptation(coffee, pastry) {
+                // Simulate weather impact (in real app, use weather API)
+                const month = new Date().getMonth();
+                const isWinter = month >= 10 || month <= 2;
+                const isSummer = month >= 5 && month <= 8;
+                
+                if (isWinter) {
+                    // Prefer hot, rich combinations
+                    if (['mocha', 'cappuccino', 'latte'].includes(coffee) && 
+                        ['cinnamon-roll', 'tiramisu'].includes(pastry)) {
+                        return 90;
+                    }
+                } else if (isSummer) {
+                    // Prefer cold, light combinations
+                    if (coffee === 'cold-brew' && 
+                        ['danish', 'eclair', 'blueberry-scone'].includes(pastry)) {
+                        return 95;
+                    }
+                }
+                return 75;
+            },
+
+            generateSmartMarketing(coffee, pastry, score, data) {
+                const insights = [];
+                const hour = new Date().getHours();
+                
+                // Time-based insights
+                if (hour < 10) {
+                    insights.push("☀️ MORNING SPECIAL: Perfect energy boost to start your day!");
+                } else if (hour >= 14 && hour < 17) {
+                    insights.push("☕ AFTERNOON PICK-ME-UP: Beat the 3pm slump with this perfect pairing!");
+                }
+                
+                // Score-based recommendations
+                if (score >= 95) {
+                    insights.push("🏆 AI TOP PICK: Our algorithm rates this as an EXCEPTIONAL match!");
+                } else if (score >= 90) {
+                    insights.push("⭐ HIGHLY RECOMMENDED: 92% of customers who try this become regulars!");
+                } else if (score >= 85) {
+                    insights.push("👍 CUSTOMER FAVORITE: Consistently high ratings from our community!");
+                }
+                
+                // Stock-driven promotions
+                const avgStock = (parseInt(data.coffeeStock) + parseInt(data.pastryStock)) / 2;
+                if (avgStock < 35) {
+                    insights.push("🔥 LIMITED AVAILABILITY: Only a few left today - order now!");
+                } else if (avgStock < 50) {
+                    insights.push("📈 TRENDING NOW: This pairing is flying off our shelves!");
+                }
+                
+                // Profit optimization messaging
+                if (data.profit > 8) {
+                    insights.push("💎 PREMIUM SELECTION: Indulge in our finest offerings!");
+                }
+                
+                // Seasonal push
+                const month = new Date().getMonth();
+                if (month === 11 || month === 0) {
+                    insights.push("❄️ WINTER WARMER: Cozy up with this seasonal favorite!");
+                } else if (month >= 6 && month <= 8) {
+                    insights.push("☀️ SUMMER SENSATION: Refreshing combination for warm days!");
+                }
+                
+                // Build final marketing text
+                const baseText = `Experience the extraordinary harmony of ${data.coffeeName} paired with our artisanal ${data.pastryName}. `;
+                
+                const flavorNotes = this.getFlavorDescription(coffee, pastry);
+                const primaryInsight = insights[0] || "";
+                const secondaryInsight = insights[1] || "";
+                
+                return baseText + flavorNotes + " " + primaryInsight + " " + secondaryInsight;
+            },
+
+            getFlavorDescription(coffee, pastry) {
+                const descriptions = {
+                    'espresso': {
+                        'almond-biscotti': "The nutty crunch perfectly complements the bold espresso notes.",
+                        'tiramisu': "Italian perfection - coffee-soaked layers meet concentrated espresso.",
+                        'default': "Bold intensity balanced with delicate sweetness."
+                    },
+                    'cappuccino': {
+                        'croissant': "Buttery layers melt into velvety foam for pure indulgence.",
+                        'cinnamon-roll': "Warm spices dance with creamy coffee in perfect harmony.",
+                        'default': "Creamy sophistication meets artisanal craftsmanship."
+                    },
+                    'latte': {
+                        'blueberry-scone': "Fresh berry tartness cuts through milky smoothness beautifully.",
+                        'chocolate-muffin': "Chocolate and coffee unite in a symphony of comfort.",
+                        'default': "Smooth, mild coffee embraces sweet pastry perfection."
+                    },
+                    'default': {
+                        'default': "A thoughtfully crafted pairing that delights the palate."
+                    }
+                };
+                
+                return (descriptions[coffee] && descriptions[coffee][pastry]) || 
+                       (descriptions[coffee] && descriptions[coffee]['default']) ||
+                       descriptions['default']['default'];
+            }
+        };
+
+        // Tab switching function
+        function switchTab(tab) {
+            // Hide all sections
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active from all tabs
+            document.querySelectorAll('.tab').forEach(tabBtn => {
+                tabBtn.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(tab).classList.add('active');
+            
+            // Mark tab as active
+            event.target.classList.add('active');
+            
+            // Hide output when switching tabs
+            document.getElementById('output').classList.remove('show');
+        }
+
+        function updateStockIndicator() {
+            const coffee = document.getElementById('coffee');
+            const pastry = document.getElementById('pastry');
+            
+            if (coffee.value) {
+                const stock = parseInt(coffee.selectedOptions[0].dataset.stock);
+                const stockDiv = document.getElementById('coffee-stock');
+                stockDiv.innerHTML = `📊 Stock: ${stock}%`;
+                stockDiv.className = 'stock-indicator ' + (stock > 70 ? 'stock-high' : stock > 40 ? 'stock-medium' : 'stock-low');
+            }
+            
+            if (pastry.value) {
+                const stock = parseInt(pastry.selectedOptions[0].dataset.stock);
+                const stockDiv = document.getElementById('pastry-stock');
+                stockDiv.innerHTML = `📊 Stock: ${stock}%`;
+                stockDiv.className = 'stock-indicator ' + (stock > 70 ? 'stock-high' : stock > 40 ? 'stock-medium' : 'stock-low');
+            }
+        }
+
+        function generatePairing() {
+            const coffee = document.getElementById('coffee').value;
+            const pastry = document.getElementById('pastry').value;
+            
+            if (!coffee || !pastry) {
+                alert('Please select both a coffee and a pastry!');
+                return;
+            }
+            
+            // Show loading
+            document.getElementById('loading').classList.add('show');
+            
+            // Simulate AI processing
+            setTimeout(() => {
+                const coffeeData = document.getElementById('coffee').selectedOptions[0];
+                const pastryData = document.getElementById('pastry').selectedOptions[0];
+                
+                const coffeeStock = parseInt(coffeeData.dataset.stock);
+                const pastryStock = parseInt(pastryData.dataset.stock);
+                const coffeeProfit = parseFloat(coffeeData.dataset.profit);
+                const pastryProfit = parseFloat(pastryData.dataset.profit);
+                
+                const avgStock = Math.round((coffeeStock + pastryStock) / 2);
+                const totalProfit = coffeeProfit + pastryProfit;
+                
+                // Use advanced AI scoring
+                const pairingScore = advancedPairingAI.calculateAdvancedScore(
+                    coffee, pastry, coffeeData, pastryData
+                );
+                
+                // Calculate demand based on stock (inverse relationship)
+                const demand = avgStock < 40 ? 'Very High' : avgStock < 60 ? 'High' : avgStock < 80 ? 'Medium' : 'Low';
+                
+                // Prepare data for marketing generation
+                const marketingData = {
+                    coffeeName: coffeeData.text.split(' - ')[0],
+                    pastryName: pastryData.text.split(' - ')[0],
+                    coffeeStock: coffeeStock,
+                    pastryStock: pastryStock,
+                    profit: totalProfit
+                };
+                
+                // Store current pairing data
+                currentPairingData = {
+                    coffee: coffeeData.text,
+                    pastry: pastryData.text,
+                    score: pairingScore,
+                    coffeeStock: coffeeStock,
+                    pastryStock: pastryStock,
+                    avgStock: avgStock,
+                    profit: totalProfit,
+                    demand: demand,
+                    marketingText: advancedPairingAI.generateSmartMarketing(coffee, pastry, pairingScore, marketingData),
+                    timestamp: new Date().toISOString(),
+                    season: advancedPairingAI.flavorMatrix[coffee]?.season || 'all seasons',
+                    bestTime: advancedPairingAI.flavorMatrix[coffee]?.timeOfDay || 'all day',
+                    flavorProfile: advancedPairingAI.flavorMatrix[coffee]?.flavor || 'delightful',
+                    aiConfidence: pairingScore,
+                    algorithm: 'BrewlyAI v2.0 Advanced'
+                };
+                
+                // Update UI
+                document.getElementById('pairing-title').textContent = 
+                    `${coffeeData.text.split(' - ')[0]} + ${pastryData.text.split(' - ')[0]}`;
+                document.getElementById('score').textContent = `${pairingScore}%`;
+                document.getElementById('stars').textContent = '★'.repeat(Math.ceil(pairingScore / 20));
+                document.getElementById('marketing-text').textContent = currentPairingData.marketingText;
+                document.getElementById('profit-metric').textContent = `$${totalProfit.toFixed(2)}`;
+                document.getElementById('stock-metric').textContent = `${avgStock}%`;
+                document.getElementById('demand-metric').textContent = demand;
+                document.getElementById('season-metric').textContent = 
+                    currentPairingData.season.split(',')[0].trim().charAt(0).toUpperCase() + 
+                    currentPairingData.season.split(',')[0].trim().slice(1);
+                
+                // Hide loading, show output
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('output').classList.add('show');
+                
+                // Smooth scroll to results
+                document.getElementById('output').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 1500);
+        }
+
+        function generateAdvancedPairing() {
+            const coffee = document.getElementById('coffee-adv').value;
+            const pastry = document.getElementById('pastry-adv').value;
+            const season = document.getElementById('season').value;
+            const venue = document.getElementById('venue').value;
+            const target = document.getElementById('target').value;
+            const minProfit = document.getElementById('profit-margin').value;
+            
+            // Show loading
+            document.getElementById('loading').classList.add('show');
+            
+            setTimeout(() => {
+                // Advanced B2B logic
+                const baseProfit = 4.5 + Math.random() * 3;
+                const seasonMultiplier = {
+                    'spring': 1.1,
+                    'summer': 0.9,
+                    'autumn': 1.2,
+                    'winter': 1.3
+                }[season];
+                
+                const venueMultiplier = {
+                    'cafe': 1.0,
+                    'restaurant': 1.2,
+                    'hotel': 1.4,
+                    'office': 0.9
+                }[venue];
+                
+                const targetBonus = {
+                    'millennials': 'Instagram-worthy presentation recommended. Use latte art and garnishes.',
+                    'professionals': 'Quick service priority. Pre-prepare popular combinations.',
+                    'students': 'Student discount available. Bundle deals increase sales 35%.',
+                    'tourists': 'Local specialty highlight. Include origin story in marketing.'
+                }[target];
+                
+                const finalProfit = (baseProfit * seasonMultiplier * venueMultiplier).toFixed(2);
+                const score = 85 + Math.floor(Math.random() * 15);
+                
+                // Advanced B2B insights
+                const b2bInsights = [];
+                
+                // Venue-specific recommendations
+                if (venue === 'hotel') {
+                    b2bInsights.push("🏨 HOTEL OPTIMIZATION: Price premium of 40% acceptable. Focus on presentation.");
+                } else if (venue === 'office') {
+                    b2bInsights.push("🏢 OFFICE SETTING: Speed is key. Pre-order system increases efficiency 60%.");
+                } else if (venue === 'cafe') {
+                    b2bInsights.push("☕ CAFÉ SETTING: Create cozy atmosphere. Display pairing suggestions prominently.");
+                }
+                
+                // Target audience insights
+                if (target === 'millennials') {
+                    b2bInsights.push("📱 SOCIAL MEDIA: This pairing generates 3x more social shares.");
+                } else if (target === 'professionals') {
+                    b2bInsights.push("💼 CORPORATE: Loyalty program adoption rate 78% with this demographic.");
+                }
+                
+                // Seasonal strategy
+                const seasonStrategy = {
+                    'spring': "🌸 Spring menu refresh drives 25% increase in foot traffic.",
+                    'summer': "☀️ Iced variants of this pairing boost summer sales by 40%.",
+                    'autumn': "🍂 Pumpkin spice variant increases autumn revenue 35%.",
+                    'winter': "❄️ Holiday packaging on this combo increases gifting sales 50%."
+                }[season];
+                
+                b2bInsights.push(seasonStrategy);
+                
+                const marketingText = `B2B STRATEGIC RECOMMENDATION: ${coffee.charAt(0).toUpperCase() + coffee.slice(1)} + ${pastry.charAt(0).toUpperCase() + pastry.slice(1)} optimized for ${venue} targeting ${target}. Expected profit margin: ${(finalProfit/10*100).toFixed(0)}%. ${targetBonus} ${b2bInsights.join(' ')} ROI projection: ${(score * 1.2).toFixed(0)}% increase in category sales.`;
+                
+                currentPairingData = {
+                    coffee: coffee.charAt(0).toUpperCase() + coffee.slice(1),
+                    pastry: pastry.charAt(0).toUpperCase() + pastry.slice(1),
+                    score: score,
+                    profit: parseFloat(finalProfit),
+                    avgStock: 75,
+                    demand: 'High',
+                    marketingText: marketingText,
+                    timestamp: new Date().toISOString(),
+                    season: season,
+                    venue: venue,
+                    targetAudience: target,
+                    profitMargin: minProfit,
+                    b2bMode: true,
+                    algorithm: 'BrewlyAI B2B Analytics Engine'
+                };
+                
+                // Update UI
+                document.getElementById('pairing-title').textContent = `B2B: ${coffee} + ${pastry}`;
+                document.getElementById('score').textContent = `${score}%`;
+                document.getElementById('stars').textContent = '★'.repeat(Math.ceil(score / 20));
+                document.getElementById('marketing-text').textContent = currentPairingData.marketingText;
+                document.getElementById('profit-metric').textContent = `$${finalProfit}`;
+                document.getElementById('stock-metric').textContent = '75%';
+                document.getElementById('demand-metric').textContent = 'High';
+                document.getElementById('season-metric').textContent = season.charAt(0).toUpperCase() + season.slice(1);
+                
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('output').classList.add('show');
+                document.getElementById('output').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 1500);
+        }
+
+        function generateCustomPairing() {
+            const coffee = document.getElementById('custom-coffee').value;
+            const pastry = document.getElementById('custom-pastry').value;
+            const stock = document.getElementById('custom-stock').value;
+            const profit = document.getElementById('custom-profit').value;
+            const notes = document.getElementById('custom-notes').value;
+            
+            if (!coffee || !pastry) {
+                alert('Please enter both coffee and pastry names!');
+                return;
+            }
+            
+            document.getElementById('loading').classList.add('show');
+            
+            setTimeout(() => {
+                // AI analysis for custom items
+                const aiAnalysis = analyzeCustomPairing(coffee, pastry, stock, profit, notes);
+                const score = aiAnalysis.score;
+                const demand = stock < 40 ? 'Very High' : stock < 60 ? 'High' : stock < 80 ? 'Medium' : 'Low';
+                
+                currentPairingData = {
+                    coffee: coffee,
+                    pastry: pastry,
+                    score: score,
+                    profit: parseFloat(profit),
+                    avgStock: parseInt(stock),
+                    demand: demand,
+                    marketingText: aiAnalysis.marketing,
+                    timestamp: new Date().toISOString(),
+                    customNotes: notes,
+                    isCustom: true,
+                    aiInsights: aiAnalysis.insights,
+                    algorithm: 'BrewlyAI Custom Analysis Engine'
+                };
+                
+                document.getElementById('pairing-title').textContent = `Custom: ${coffee} + ${pastry}`;
+                document.getElementById('score').textContent = `${score}%`;
+                document.getElementById('stars').textContent = '★'.repeat(Math.ceil(score / 20));
+                document.getElementById('marketing-text').textContent = currentPairingData.marketingText;
+                document.getElementById('profit-metric').textContent = `$${profit}`;
+                document.getElementById('stock-metric').textContent = `${stock}%`;
+                document.getElementById('demand-metric').textContent = demand;
+                document.getElementById('season-metric').textContent = 'Custom';
+                
+                document.getElementById('loading').classList.remove('show');
+                document.getElementById('output').classList.add('show');
+                document.getElementById('output').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 1500);
+        }
+
+        function analyzeCustomPairing(coffee, pastry, stock, profit, notes) {
+            // AI analysis for custom items using NLP-like pattern matching
+            const coffeeKeywords = coffee.toLowerCase();
+            const pastryKeywords = pastry.toLowerCase();
+            
+            let baseScore = 75;
+            const insights = [];
+            
+            // Coffee type detection
+            if (coffeeKeywords.includes('espresso') || coffeeKeywords.includes('dark')) {
+                baseScore += 5;
+                insights.push("Strong coffee detected - pairs well with sweet pastries");
+            }
+            if (coffeeKeywords.includes('latte') || coffeeKeywords.includes('milk')) {
+                baseScore += 3;
+                insights.push("Milk-based coffee - versatile pairing options");
+            }
+            if (coffeeKeywords.includes('cold') || coffeeKeywords.includes('iced')) {
+                insights.push("Cold beverage - recommend for warm weather");
+            }
+            
+            // Pastry type detection
+            if (pastryKeywords.includes('chocolate')) {
+                baseScore += 5;
+                insights.push("Chocolate detected - universal pairing enhancer");
+            }
+            if (pastryKeywords.includes('fruit') || pastryKeywords.includes('berry')) {
+                baseScore += 4;
+                insights.push("Fruit elements add refreshing contrast");
+            }
+            if (pastryKeywords.includes('nut') || pastryKeywords.includes('almond')) {
+                baseScore += 3;
+                insights.push("Nutty flavors complement coffee naturally");
+            }
+            
+            // Stock-based scoring
+            const stockInt = parseInt(stock);
+            if (stockInt < 30) {
+                baseScore += 10;
+                insights.push("⚠️ LOW STOCK: Push this item immediately");
+            }
+            
+            // Profit-based scoring
+            const profitFloat = parseFloat(profit);
+            if (profitFloat > 6) {
+                baseScore += 8;
+                insights.push("💰 HIGH MARGIN: Excellent profit potential");
+            }
+            
+            // Final score adjustment
+            const finalScore = Math.min(95, baseScore + Math.random() * 10);
+            
+            // Generate marketing
+            const marketing = `CUSTOM PAIRING ANALYSIS: ${coffee} meets ${pastry} - a unique combination with ${finalScore.toFixed(0)}% compatibility score. ` +
+                `${insights.join('. ')}. ` +
+                `With ${stock}% stock and $${profit} profit margin, this pairing offers ${stockInt < 50 ? 'immediate sales opportunity' : 'steady revenue potential'}. ` +
+                `${notes ? `Special considerations: ${notes}.` : ''} ` +
+                `AI RECOMMENDATION: ${finalScore > 85 ? 'Highly Recommended' : finalScore > 75 ? 'Recommended' : 'Worth Testing'} for your menu.`;
+            
+            return {
+                score: Math.round(finalScore),
+                marketing: marketing,
+                insights: insights
+            };
+        }
+
+        function resetForm() {
+            document.getElementById('coffee').value = '';
+            document.getElementById('pastry').value = '';
+            document.getElementById('coffee-stock').innerHTML = '';
+            document.getElementById('pastry-stock').innerHTML = '';
+            document.getElementById('output').classList.remove('show');
+            
+            // Reset all other forms too
+            document.getElementById('coffee-adv').value = 'espresso';
+            document.getElementById('pastry-adv').value = 'croissant';
+            document.getElementById('custom-coffee').value = '';
+            document.getElementById('custom-pastry').value = '';
+            document.getElementById('custom-stock').value = '50';
+            document.getElementById('custom-profit').value = '5.00';
+            document.getElementById('custom-notes').value = '';
+        }
+
+        function downloadCSV() {
+            if (!currentPairingData) {
+                alert('Please generate a pairing first!');
+                return;
+            }
+            
+            const csvContent = [
+                ['Field', 'Value'],
+                ['Coffee', currentPairingData.coffee],
+                ['Pastry', currentPairingData.pastry],
+                ['AI Compatibility Score', currentPairingData.score + '%'],
+                ['Estimated Profit', '$' + (currentPairingData.profit?.toFixed ? currentPairingData.profit.toFixed(2) : currentPairingData.profit)],
+                ['Stock Level', currentPairingData.avgStock + '%'],
+                ['Demand Level', currentPairingData.demand],
+                ['Marketing Text', '"' + currentPairingData.marketingText.replace(/"/g, '""') + '"'],
+                ['Generated At', currentPairingData.timestamp],
+                ['Best Season', currentPairingData.season || 'All'],
+                ['Venue Type', currentPairingData.venue || 'All'],
+                ['Target Audience', currentPairingData.targetAudience || 'General'],
+                ['AI Algorithm', currentPairingData.algorithm || 'BrewlyAI v2.0'],
+                ['Mode', currentPairingData.b2bMode ? 'B2B' : currentPairingData.isCustom ? 'Custom' : 'Standard']
+            ].map(row => row.join(',')).join('\n');
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `brewly_ai_pairing_${Date.now()}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function downloadJSON() {
+            if (!currentPairingData) {
+                alert('Please generate a pairing first!');
+                return;
+            }
+            
+            const jsonData = {
+                pairingAnalysis: {
+                    coffee: currentPairingData.coffee,
+                    pastry: currentPairingData.pastry,
+                    aiScore: currentPairingData.score,
+                    aiAlgorithm: currentPairingData.algorithm || 'BrewlyAI v2.0 Advanced',
+                    metrics: {
+                        estimatedProfit: currentPairingData.profit,
+                        stockLevel: currentPairingData.avgStock,
+                        demandLevel: currentPairingData.demand,
+                        coffeeStock: currentPairingData.coffeeStock,
+                        pastryStock: currentPairingData.pastryStock
+                    },
+                    marketing: {
+                        primaryText: currentPairingData.marketingText,
+                        targetSeason: currentPairingData.season || 'all',
+                        bestTimeOfDay: currentPairingData.bestTime || 'all day',
+                        flavorProfile: currentPairingData.flavorProfile || 'classic',
+                        venue: currentPairingData.venue || 'all',
+                        targetAudience: currentPairingData.targetAudience || 'general'
+                    },
+                    businessIntelligence: {
+                        profitMargin: currentPairingData.profitMargin || 'standard',
+                        customNotes: currentPairingData.customNotes || null,
+                        aiInsights: currentPairingData.aiInsights || [],
+                        mode: currentPairingData.b2bMode ? 'B2B' : currentPairingData.isCustom ? 'Custom' : 'Standard'
+                    },
+                    metadata: {
+                        generatedAt: currentPairingData.timestamp,
+                        aiModel: 'BrewlyAI v2.0',
+                        confidence: currentPairingData.score / 100,
+                        version: '2.0.0'
+                    }
+                }
+            };
+            
+            const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `brewly_ai_pairing_${Date.now()}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function downloadHTML() {
+            if (!currentPairingData) {
+                alert('Please generate a pairing first!');
+                return;
+            }
+            
+            const htmlContent = `<!DOCTYPE html>
+<html>
+<head>
+<title>Brewly AI - Coffee Pairing Report</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, #6F4E37 0%, #3C2414 100%);
+        min-height: 100vh;
+    }
+    .report-card {
+        background: #FFF8E7;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    h1 {
+        color: #6F4E37;
+        border-bottom: 3px solid #D4A574;
+        padding-bottom: 15px;
+        font-size: 2.5em;
+    }
+    h2 {
+        color: #6F4E37;
+        margin-top: 30px;
+    }
+    .metric {
+        display: inline-block;
+        margin: 10px 20px 10px 0;
+        padding: 12px 24px;
+        background: linear-gradient(135deg, #6F4E37 0%, #967259 100%);
+        color: #FFF8E7;
+        border-radius: 10px;
+        font-weight: bold;
+    }
+    .marketing-box {
+        background: #FFEEDD;
+        padding: 25px;
+        border-radius: 15px;
+        margin: 20px 0;
+        line-height: 1.8;
+        border-left: 5px solid #D4A574;
+    }
+    .score {
+        font-size: 48px;
+        color: #6F4E37;
+        font-weight: bold;
+        text-align: center;
+        margin: 30px 0;
+    }
+    .stars {
+        color: #D4A574;
+        font-size: 36px;
+    }
+    .timestamp {
+        color: #967259;
+        margin-top: 40px;
+        text-align: right;
+        font-style: italic;
+    }
+    .logo {
+        text-align: center;
+        font-size: 3em;
+        margin-bottom: 20px;
+    }
+    .insights {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+    }
+    .insights li {
+        margin: 10px 0;
+        color: #3C2414;
+    }
+</style>
+</head>
+<body>
+<div class="report-card">
+    <div class="logo">☕ Brewly AI</div>
+    <h1>Intelligent Coffee Pairing Report</h1>
+    
+    <h2>Pairing: ${currentPairingData.coffee} + ${currentPairingData.pastry}</h2>
+    
+    <div class="score">
+        AI Compatibility: ${currentPairingData.score}%
+        <div class="stars">${'★'.repeat(Math.ceil(currentPairingData.score / 20))}</div>
+    </div>
+    
+    <h3>📊 Key Business Metrics</h3>
+    <div class="metric">Profit: $${currentPairingData.profit?.toFixed ? currentPairingData.profit.toFixed(2) : currentPairingData.profit}</div>
+    <div class="metric">Stock: ${currentPairingData.avgStock}%</div>
+    <div class="metric">Demand: ${currentPairingData.demand}</div>
+    <div class="metric">Season: ${currentPairingData.season || 'All'}</div>
+    ${currentPairingData.venue ? `<div class="metric">Venue: ${currentPairingData.venue}</div>` : ''}
+    ${currentPairingData.targetAudience ? `<div class="metric">Target: ${currentPairingData.targetAudience}</div>` : ''}
+    
+    <h3>🎯 AI Marketing Recommendation</h3>
+    <div class="marketing-box">
+        ${currentPairingData.marketingText}
+    </div>
+    
+    <h3>🤖 AI Analysis Summary</h3>
+    <div class="insights">
+        <ul>
+            <li><strong>Flavor Profile:</strong> ${currentPairingData.flavorProfile || 'Balanced combination with complementary notes'}</li>
+            <li><strong>Best Time:</strong> ${currentPairingData.bestTime || 'Suitable for all-day service'}</li>
+            <li><strong>Customer Appeal:</strong> ${currentPairingData.score >= 90 ? 'Exceptional - Bestseller potential' : currentPairingData.score >= 80 ? 'Very High - Strong performer' : 'Good - Solid choice'}</li>
+            <li><strong>Revenue Potential:</strong> ${currentPairingData.profit > 7 ? 'Premium pricing opportunity' : currentPairingData.profit > 5 ? 'High margin item' : 'Standard pricing'}</li>
+            <li><strong>Stock Strategy:</strong> ${currentPairingData.avgStock < 40 ? 'Urgent restocking needed' : currentPairingData.avgStock < 60 ? 'Monitor closely' : 'Adequate inventory'}</li>
+            <li><strong>Algorithm:</strong> ${currentPairingData.algorithm || 'BrewlyAI v2.0 Advanced Multi-Factor Analysis'}</li>
+            ${currentPairingData.isCustom ? '<li><strong>Type:</strong> Custom operator-defined pairing</li>' : ''}
+            ${currentPairingData.b2bMode ? '<li><strong>Mode:</strong> B2B Strategic Analysis</li>' : ''}
+        </ul>
+    </div>
+    
+    ${currentPairingData.customNotes ? `
+    <h3>📝 Special Notes</h3>
+    <div class="marketing-box">
+        ${currentPairingData.customNotes}
+    </div>
+    ` : ''}
+    
+    <div class="timestamp">
+        Report generated: ${new Date(currentPairingData.timestamp).toLocaleString()}
+        <br>Powered by Brewly AI v2.0
+    </div>
+</div>
+</body>
+</html>`;
+            
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `brewly_ai_report_${Date.now()}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Initialize on load
+        window.addEventListener('load', function() {
+            // Add subtle animation to coffee beans if they exist
+            const beans = document.querySelectorAll('.coffee-bean');
+            beans.forEach((bean, index) => {
+                bean.style.animationDelay = `${index * 5}s`;
+            });
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navbar = document.querySelector('.navbar');
+            const navLinks = document.getElementById('navLinks');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!navbar.contains(event.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

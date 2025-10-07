@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Pairing - Brewly AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --coffee-brown: #6F4E37;
+            --cream: #FFF8E7;
+            --espresso: #3C2414;
+            --latte: #C8A882;
+            --mocha: #967259;
+            --gold: #D4A574;
+            --foam: #FFEEDD;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6F4E37 0%, #3C2414 100%);
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(60, 36, 20, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            font-weight: 900;
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(60, 36, 20, 0.8), rgba(111, 78, 55, 0.9)), 
+                        url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .page-header p {
+            font-size: 1.3em;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: -50px auto 40px;
+            background: var(--cream);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 10;
+        }
+
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .selection-group {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .selection-group:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(111, 78, 55, 0.15);
+            border-color: var(--gold);
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--espresso);
+            font-size: 1.05em;
+        }
+
+        label i {
+            color: var(--coffee-brown);
+        }
+
+        select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--latte);
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: white;
+            color: var(--espresso);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--coffee-brown);
+            box-shadow: 0 0 0 4px rgba(111, 78, 55, 0.1);
+        }
+
+        .stock-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .stock-high {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .stock-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .stock-low {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--coffee-brown) 0%, var(--espresso) 100%);
+            color: var(--cream);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(111, 78, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--coffee-brown);
+            border: 3px solid var(--coffee-brown);
+        }
+
+        .btn-secondary:hover {
+            background: var(--coffee-brown);
+            color: white;
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .loader {
+            border: 5px solid var(--foam);
+            border-top: 5px solid var(--coffee-brown);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Output Section */
+        .output-section {
+            margin-top: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, #D4A574 0%, #C8A882 50%, #967259 100%);
+            border-radius: 20px;
+            display: none;
+            border: 3px solid var(--coffee-brown);
+            box-shadow: 0 20px 50px rgba(111, 78, 55, 0.3);
+        }
+
+        .output-section.show {
+            display: block;
+            animation: slideUpFade 0.6s ease;
+        }
+
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pairing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin-top: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            border: 2px solid var(--gold);
+        }
+
+        .pairing-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .match-score {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: var(--coffee-brown);
+        }
+
+        .stars {
+            color: var(--gold);
+            font-size: 1.2em;
+        }
+
+        .marketing-text {
+            background: var(--foam);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            line-height: 1.8;
+            border-left: 5px solid var(--gold);
+            color: var(--espresso);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, var(--coffee-brown) 0%, var(--espresso) 100%);
+            color: var(--cream);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 15px;
+            }
+
+            .container {
+                padding: 25px;
+                margin: -30px 20px 40px;
+            }
+
+            .page-header h1 {
+                font-size: 2.5em;
+            }
+
+            .selection-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="s.html" class="logo">Brewly AI</a>
+            <ul class="nav-links">
+                <li><a href="smart-pairing.html" class="active"><i class="fa-solid fa-wand-magic-sparkles"></i> Smart Pairing</a></li>
+                <li><a href="b2b-analytics.html"><i class="fa-solid fa-building"></i> B2B Analytics</a></li>
+                <li><a href="custom-input.html"><i class="fa-solid fa-sliders"></i> Custom Input</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1><i class="fa-solid fa-wand-magic-sparkles"></i> Smart Pairing</h1>
+        <p>AI-Powered Perfect Coffee & Pastry Combinations</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="selection-grid">
+            <div class="selection-group">
+                <label for="coffee"><i class="fa-solid fa-mug-hot"></i> Select Coffee</label>
+                <select id="coffee" onchange="updateStockIndicator()">
+                    <option value="">Choose a coffee...</option>
+                    <option value="espresso" data-stock="95" data-profit="3.5" data-intensity="9" data-sweetness="2" data-richness="7">Espresso - Classic Italian</option>
+                    <option value="cappuccino" data-stock="87" data-profit="4.2" data-intensity="5" data-sweetness="5" data-richness="6">Cappuccino - Creamy Delight</option>
+                    <option value="latte" data-stock="92" data-profit="4.5" data-intensity="3" data-sweetness="6" data-richness="5">Latte - Smooth & Milky</option>
+                    <option value="americano" data-stock="78" data-profit="3.2" data-intensity="8" data-sweetness="1" data-richness="4">Americano - Bold & Strong</option>
+                    <option value="macchiato" data-stock="65" data-profit="4.8" data-intensity="7" data-sweetness="3" data-richness="6">Macchiato - Spotted Perfection</option>
+                    <option value="flat-white" data-stock="45" data-profit="5.0" data-intensity="6" data-sweetness="4" data-richness="7">Flat White - Velvety Smooth</option>
+                    <option value="mocha" data-stock="58" data-profit="5.2" data-intensity="4" data-sweetness="8" data-richness="8">Mocha - Chocolate Heaven</option>
+                    <option value="cold-brew" data-stock="34" data-profit="4.0" data-intensity="5" data-sweetness="1" data-richness="3">Cold Brew - Refreshing</option>
+                </select>
+                <div id="coffee-stock" class="stock-indicator"></div>
+            </div>
+
+            <div class="selection-group">
+                <label for="pastry"><i class="fa-solid fa-croissant"></i> Select Pastry</label>
+                <select id="pastry" onchange="updateStockIndicator()">
+                    <option value="">Choose a pastry...</option>
+                    <option value="croissant" data-stock="89" data-profit="2.8" data-sweetness="4" data-richness="7">Croissant - Buttery Classic</option>
+                    <option value="chocolate-muffin" data-stock="76" data-profit="3.2" data-sweetness="7" data-richness="6">Chocolate Muffin</option>
+                    <option value="blueberry-scone" data-stock="54" data-profit="3.5" data-sweetness="6" data-richness="5">Blueberry Scone</option>
+                    <option value="cinnamon-roll" data-stock="43" data-profit="4.0" data-sweetness="8" data-richness="7">Cinnamon Roll</option>
+                    <option value="almond-biscotti" data-stock="92" data-profit="2.5" data-sweetness="5" data-richness="4">Almond Biscotti</option>
+                    <option value="tiramisu" data-stock="28" data-profit="6.5" data-sweetness="7" data-richness="9">Tiramisu</option>
+                    <option value="danish" data-stock="61" data-profit="3.8" data-sweetness="6" data-richness="6">Danish Pastry</option>
+                    <option value="eclair" data-stock="35" data-profit="5.0" data-sweetness="8" data-richness="8">Chocolate Éclair</option>
+                </select>
+                <div id="pastry-stock" class="stock-indicator"></div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-primary" onclick="generatePairing()">
+                <i class="fa-solid fa-robot"></i> Generate AI Pairing
+            </button>
+            <button class="btn-secondary" onclick="resetForm()">
+                <i class="fa-solid fa-rotate-right"></i> Reset Selection
+            </button>
+        </div>
+
+        <!-- Loading Animation -->
+        <div class="loading" id="loading">
+            <div class="loader"></div>
+            <p style="margin-top: 20px; color: var(--espresso); font-size: 1.1em; font-weight: 600;">
+                <i class="fa-solid fa-brain"></i> AI is analyzing perfect pairings...
+            </p>
+        </div>
+
+        <!-- Output Section -->
+        <div id="output" class="output-section">
+            <h2 style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                <i class="fa-solid fa-trophy"></i> AI Pairing Results
+            </h2>
+            <div class="pairing-card">
+                <div class="pairing-header">
+                    <h3 id="pairing-title" style="color: var(--espresso); font-size: 1.8em;">Perfect Pairing</h3>
+                    <div class="match-score">
+                        <span class="stars" id="stars">★★★★★</span>
+                        <span id="score">95%</span>
+                    </div>
+                </div>
+
+                <div class="marketing-text" id="marketing-text">
+                    Marketing suggestion will appear here...
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="profit-metric">$0.00</div>
+                        <div class="metric-label">Est. Profit</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="stock-metric">0%</div>
+                        <div class="metric-label">Stock Level</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="demand-metric">High</div>
+                        <div class="metric-label">Demand</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="season-metric">All</div>
+                        <div class="metric-label">Best Season</div>
+                    </div>
+                </div>
+
+                <div class="download-buttons">
+                    <button class="btn-primary" onclick="downloadCSV()">
+                        <i class="fa-solid fa-file-csv"></i> Download CSV
+                    </button>
+                    <button class="btn-primary" onclick="downloadJSON()">
+                        <i class="fa-solid fa-file-code"></i> Download JSON
+                    </button>
+                    <button class="btn-primary" onclick="downloadHTML()">
+                        <i class="fa-solid fa-file-lines"></i> Download HTML Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="pairing-engine.js"></script>
+</body>
+</html>
+
+
